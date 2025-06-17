@@ -1,0 +1,213 @@
+@charset "UTF-8";
+
+/*
+my style sheet
+*/
+legend {
+    font-weight: bold;
+    font-family: Georgia, Times, serif;
+}
+
+input[type=checkbox] {
+    margin-left: 25px;
+}
+
+.floatright {
+    float: right;
+    margin-left: 30px;
+}
+
+.center {
+    display: block;
+    margin-left: 395px;
+    margin-right: auto;
+}
+
+header {
+    height: 5px;
+}
+
+#main {
+    margin-left: 275px;
+    color: ghostwhite;
+}
+
+body {
+    background-image: url('grayblk.png');
+    background-color: black;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    margin: 1% 5%;
+    font-family: Verdana, Arial, sans-serif;
+    position: relative;
+}
+
+.nob {
+    list-style-type: none;
+    margin-left: -60px;
+}
+
+.indented-list {
+        margin-left: 20px;
+}
+
+h1 {
+    color: ghostwhite;
+    font-size: 36px;
+    line-height: 25px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-family: Georgia, Times, serif;
+}
+
+h2 {
+    margin-top: 10px;
+    font-family: Georgia, Times, serif;
+}
+
+/* these are for body links */
+/* unvisited links */
+a:link {
+    color: #C6BA8B;
+}
+
+/* hovering over a link */
+a:hover,
+a:active {
+    background: #fff7bd;
+    color: darkcyan;
+}
+
+/* visited links */
+a:visited {
+    color: aqua;
+    background: gray;
+}
+
+/* these are for navigation spacing */
+nav {
+    display: inline;
+    position: fixed;
+    width: 250px;
+    float: left;
+    height: 750px;  
+}
+
+/* these are for navigation links */
+nav a:link,
+nav a:visited {
+    color: #65a982;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+nav a:hover,
+nav a:active {
+    background: red;
+    color: orange;
+}
+
+fieldset {
+    background-color: #262938;
+}
+
+footer {
+    margin-top: 50px;
+    font-size: 65%;
+    color: lightsteelblue;
+}
+
+/* Back to Top button */
+#backToTop {
+    display: inline;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 152, 241, 0.65);
+    color: ghostwhite;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+#backToTop:hover {
+    background-color: rgba(34, 255, 82, 0.65);
+    opacity: 1;
+}
+
+#backToTop.show {
+    display: block;
+}
+
+/* all styles below belong to modifying the FullCalendar */
+
+#calendar {
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 0.45em;  /* Scales down all text proportionally */
+    
+  /* Optional: Adjust calendar container for better alignment */
+.fc {
+  font-size: 0.6.5em; /* Slightly scale down all calendar text for consistency */
+}
+}
+.fc-daygrid-day-number {
+    color: #000;
+}
+.fc-event {
+    background-color: #4682B4;
+    color: #fff;
+    border: none;
+    font-size: 0.3em;
+    padding: 0px;
+}
+
+/* Reduce calendar title (month and year) font size */
+.fc-toolbar-title {
+  font-size: .3em; /* Adjust this value (e.g., 1em for smaller, 1.5em for larger) */
+}
+
+/* Reduce arrow button size */
+.fc-prev-button, .fc-next-button {
+  padding: 1px; /* Smaller padding for compact buttons */
+  font-size: 0.6em; /* Smaller icon/text size */
+  width: 40px; /* Adjust width */
+  height: 20px; /* Adjust height */
+  line-height: 1.5; /* Center icon vertically */
+}
+
+/* Archive page styles are listed below */
+#main h2, #main h3, #main h4 {
+    color: ghostwhite; /* Match static site text color */
+}
+#main a {
+    color: #C6BA8B; /* Match static site link color */
+}
+#main a:hover, #main a:active {
+    background: #fff7bd;
+    color: darkcyan;
+}
+#main a:visited {
+    color: aqua;
+    background: gray;
+}
+#post-list h3 {
+    margin-top: 20px;
+    color: ghostwhite;
+}
+#post-list div {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+#post-list h4 {
+    margin: 0 0 10px;
+    color: #65a982; /* Match nav link color */
+}
