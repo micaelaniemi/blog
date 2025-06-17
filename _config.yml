@@ -1,0 +1,8 @@
+title: MN Blog
+description: Micaela Niemi's Blog
+baseurl: "/blog"
+url: "https://micaelaniemi.github.io"
+collections:
+  posts:
+    output: false # Prevent individual post pages
+permalink: none
