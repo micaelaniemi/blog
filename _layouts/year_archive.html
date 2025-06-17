@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    <link href="{{ '/mystyles.css' | relative_url }}" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <p></p>
+    </header>
+    <nav>
+        <ul class="nob">
+            <li><img class="float" src="{{ '/swshlogo.jpg' | relative_url }}" height="160" alt="M Niemi's Website" /></li>
+            <li><a href="https://micaelaniemi.github.io/website/index.html">Home</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/advertisers.html">Advertisers</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/favlinks.html">Favorite Links</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/books.html">Book Links</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/values.html">Informative Links</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/abortion.html">Abortion</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/resume.html">Resume</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/adventures.html">Adventures</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/feedback.html">Feedback</a></li>
+            <li><a href="https://micaelaniemi.github.io/website/donations.html">Donations</a></li>
+        </ul>
+    </nav>
+    <div id="main">
+        <h2>Posts for {{ page.year }}</h2>
+        {% for post in site.posts %}
+            {% assign post_year = post.date | date: "%Y" %}
+            {% if post_year == page.year %}
+                <h3>{{ post.date | date: "%B %d, %Y" }}</h3>
+                <div id="post-{{ post.date | date: "%Y-%m-%d-%H%M" }}">
+                    <h4>{{ post.date | date: "%I:%M %p" }} - {{ post.title }}</h4>
+                    {{ post.content }}
+                </div>
+            {% endif %}
+        {% endfor %}
+        <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
+    </div>
+    <footer>
+        <p>Copyright Micaela Niemi, all rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const post = document.querySelector(hash);
+                if (post) {
+                    post.scrollIntoView({ behavior: 'smooth' });
+                    post.style.backgroundColor = '#e6f4ea';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
