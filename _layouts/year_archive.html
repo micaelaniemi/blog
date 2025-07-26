@@ -24,7 +24,7 @@
             <li><a href="https://micaelaniemi.github.io/website/donations.html">Donations</a></li>
         </ul>
     </nav>
-    <div id="main">
+   <div id="main">
         <h2>Posts for {{ page.year }}</h2>
         {% for post in site.posts %}
             {% assign post_year = post.date | date: "%Y" %}
