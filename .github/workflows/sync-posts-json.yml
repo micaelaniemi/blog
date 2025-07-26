@@ -62,15 +62,7 @@ jobs:
                 "time" => time_str,
                 "title" => front_matter["title"]
              }
-              date_str = date.strftime("%Y-%m-%d")
-              time_str = date.strftime("%H:%M")
-              posts[date_str] ||= []
-              posts[date_str] << {
-                "id" => date.strftime("%Y-%m-%d-%H%M"),
-                "time" => time_str,
-                "title" => front_matter["title"]
-              }
-              puts "Added post: #{date_str} - #{front_matter["title"]}"
+            puts "Added post: #{date_str} - #{front_matter["title"]}"
             end
             sorted_posts = posts.sort_by { |date, _| Date.parse(date) }.reverse.to_h
             puts "Writing posts.json: #{sorted_posts.to_json}"
