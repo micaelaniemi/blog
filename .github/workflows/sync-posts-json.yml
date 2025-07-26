@@ -1,0 +1,56 @@
+name: Sync posts.json to website repository
+on:
+  push:
+    paths:
+      - '_posts/**'
+  workflow_dispatch: # Allows manual triggering
+jobs:
+  sync-posts-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout blog repository
+        uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      - name: Install dependencies
+        run: gem install kramdown
+      - name: Generate posts.json
+        run: |
+          ruby -e '
+            require "yaml"
+            require "kramdown"
+            posts = {}
+            Dir.glob("_posts/*.md").each do |file|
+              content = File.read(file)
+              front_matter = YAML.load(content.match(/^---\n(.*?)\n---/m)[1])
+              date = front_matter["date"]
+              next unless date
+              date_str = date.strftime("%Y-%m-%d")
+              time_str = date.strftime("%H:%M")
+              posts[date_str] ||= []
+              posts[date_str] << {
+                "id" => date.strftime("%Y-%m-%d-%H%M"),
+                "time" => time_str,
+                "title" => front_matter["title"]
+              }
+            end
+            File.write("posts.json", posts.to_json)
+          '
+      - name: Commit posts.json to website repository
+        env:
+          WEBSITE_REPO_TOKEN: ${{ secrets.WEBSITE_REPO_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@users.noreply.github.com"
+          git clone https://$WEBSITE_REPO_TOKEN@github.com/micaelaniemi/website.git website
+          cp posts.json website/posts.json
+          cd website
+          git add posts.json
+          if git status --porcelain | grep .; then
+            git commit -m "Update posts.json from blog repository"
+            git push
+          else
+            echo "No changes to posts.json"
+          fi
