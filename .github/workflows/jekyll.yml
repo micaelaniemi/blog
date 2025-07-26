@@ -20,7 +20,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2' # Match sync-posts-json.yml
+          ruby-version: '3.2'
           bundler-cache: true
       - name: Setup Pages
         id: pages
@@ -28,6 +28,7 @@ jobs:
       - name: Install and Build
         run: |
           gem install bundler
+          bundle config path .bundle
           bundle install
           bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
