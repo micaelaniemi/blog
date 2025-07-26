@@ -1,9 +1,9 @@
 title: MN Blog
 description: Micaela Niemi's Blog
 username: micaelaniemi
-repository: micaelaniemi.github.io
-#baseurl: "/blog"
-#url: "https://micaelaniemi.github.io"
+repository: micaelaniemi/blog
+url: https://micaelaniemi.github.io
+baseurl: /blog
 future: true
 collections:
   posts:
