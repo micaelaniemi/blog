@@ -45,7 +45,7 @@ jobs:
           git commit -m "Update posts.json from blog build"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WEBSITE_REPO_TOKEN}}
 
   deploy:
     environment:
