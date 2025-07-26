@@ -16,17 +16,30 @@ jobs:
           ruby-version: '3.2'
       - name: Install dependencies
         run: gem install kramdown
+      - name: List _posts directory
+        run: ls -la _posts/
       - name: Generate posts.json
         run: |
           ruby -e '
             require "yaml"
             require "json"
             posts = {}
-            Dir.glob("_posts/*.md").each do |file|
+            files = Dir.glob("_posts/*.md")
+            puts "Found #{files.length} files in _posts/: #{files.join(", ")}"
+            files.each do |file|
+              puts "Processing file: #{file}"
               content = File.read(file)
-              front_matter = YAML.load(content.match(/^---\n(.*?)\n---/m)[1])
+              match = content.match(/^---\n(.*?)\n---/m)
+              unless match
+                puts "No front matter found in #{file}"
+                next
+              end
+              front_matter = YAML.load(match[1])
+              unless front_matter["date"]
+                puts "No date found in #{file}"
+                next
+              end
               date = front_matter["date"]
-              next unless date
               date_str = date.strftime("%Y-%m-%d")
               time_str = date.strftime("%H:%M")
               posts[date_str] ||= []
@@ -35,11 +48,14 @@ jobs:
                 "time" => time_str,
                 "title" => front_matter["title"]
               }
+              puts "Added post: #{date_str} - #{front_matter["title"]}"
             end
-            # Sort dates in reverse chronological order
             sorted_posts = posts.sort_by { |date, _| Date.parse(date) }.reverse.to_h
+            puts "Writing posts.json: #{sorted_posts.to_json}"
             File.write("posts.json", JSON.pretty_generate(sorted_posts))
           '
+      - name: Show posts.json content
+        run: cat posts.json
       - name: Commit posts.json to website repository
         env:
           WEBSITE_REPO_TOKEN: ${{ secrets.WEBSITE_REPO_TOKEN }}
