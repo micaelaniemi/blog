@@ -24,7 +24,8 @@
             <li><a href="https://micaelaniemi.github.io/website/donations.html">Donations</a></li>
         </ul>
     </nav>
-   <div id="main">
+//commenting out for testing
+    <!--   <div id="main">
         <h2>Posts for {{ page.year }}</h2>
         {% for post in site.posts %}
             {% assign post_year = post.date | date: "%Y" %}
@@ -37,7 +38,31 @@
             {% endif %}
         {% endfor %}
         <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
-    </div>
+    </div> -->
+
+//used this code for debuging
+    <div id="main">
+    <h2>Posts for {{ page.year }}</h2>
+    <h3>All Posts (Debug)</h3>
+    <ul>
+    {% for post in site.posts %}
+        <li>{{ post.date | date: "%Y-%m-%d %I:%M %p" }} - {{ post.title }}</li>
+    {% endfor %}
+    </ul>
+    <h3>Filtered Posts</h3>
+    {% for post in site.posts %}
+        {% assign post_year = post.date | date: "%Y" %}
+        {% if post_year == page.year %}
+            <h3>{{ post.date | date: "%B %d, %Y" }}</h3>
+            <div id="post-{{ post.date | date: "%Y-%m-%d-%H%M" }}">
+                <h4>{{ post.date | date: "%I:%M %p" }} - {{ post.title }}</h4>
+                {{ post.content }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
+</div>
+    
     <footer>
         <p>Copyright Micaela Niemi, all rights reserved.</p>
     </footer>
