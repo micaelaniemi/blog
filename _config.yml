@@ -2,6 +2,6 @@ title: MN Blog
 description: Micaela Niemi's Blog
 baseurl: "/blog"
 url: "https://micaelaniemi.github.io"
-permalink: none
+permalink: /posts/:year-:month-:day/:year-:month-:day-:hour:minute
 future: true
 exclude: [vendor]
