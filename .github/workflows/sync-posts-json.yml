@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - '_posts/**'
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:
 jobs:
   sync-posts-json:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
         run: |
           ruby -e '
             require "yaml"
-            require "kramdown"
+            require "json"
             posts = {}
             Dir.glob("_posts/*.md").each do |file|
               content = File.read(file)
@@ -36,7 +36,9 @@ jobs:
                 "title" => front_matter["title"]
               }
             end
-            File.write("posts.json", posts.to_json)
+            # Sort dates in reverse chronological order
+            sorted_posts = posts.sort_by { |date, _| Date.parse(date) }.reverse.to_h
+            File.write("posts.json", JSON.pretty_generate(sorted_posts))
           '
       - name: Commit posts.json to website repository
         env:
