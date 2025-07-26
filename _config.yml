@@ -15,4 +15,4 @@ defaults:
       #permalink: none 
 future: true # Allow future-dated posts
 exclude: 
-- "jeklyll/bundle"
+- "jekyll/bundle"
