@@ -10,7 +10,7 @@ end
 
 
 
-[//]::  jekyll 3 seems to have issues with:  Invalid date '<%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %>'
+[//]:  jekyll 3 seems to have issues with:  Invalid date '<%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %>'
 source "https://rubygems.org"
 
 gem "github-pages", "~> 232", group: :jekyll_plugins
