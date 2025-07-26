@@ -24,48 +24,56 @@ jobs:
             require "yaml"
             require "json"
             require "date"
-            require "time'
+            require "time"
             posts = {}
             files = Dir.glob("_posts/*.md")
             puts "Found #{files.length} files in _posts/: #{files.join(", ")}"
             files.each do |file|
               puts "Processing file: #{file}"
-              content = File.read(file)
-              match = content.match(/^---\n(.*?)\n---/m)
-              unless match
-                puts "No front matter found in #{file}"
-                next
-              end
-              front_matter = YAML.safe_load(match[1], permitted_classes: [Time, Date])
-              unless front_matter["date"]
-                puts "No date found in #{file}"
-                next
-              end
-              
-              # Try to parse the date, fallback if parsing fails
-              date = front_matter["date"]  #updated code to fix
               begin
-                # If date is a String, parse it
-                if date.is_a?(String)
-                  date = Time.parse(date)
+                content = File.read(file)
+                match = content.match(/^---\n(.*?)\n---/m)
+                unless match
+                  puts "No front matter found in #{file}"
+                  next
                 end
-            rescue ArgumentError
-              puts "Invalid date format in #{file}: #{front_matter['date']}"
-              next
+                front_matter = YAML.safe_load(match[1], permitted_classes: [Time, Date])
+                unless front_matter["date"]
+                  puts "No date found in #{file}"
+                  next
+                end
+
+                # Parse the date
+                date = front_matter["date"]
+                if date.is_a?(String)
+                  begin
+                    date = DateTime.parse(date)
+                  rescue ArgumentError
+                    puts "Invalid date format in #{file}: #{front_matter["date"]}"
+                    next
+                  end
+                elsif !date.is_a?(Time) && !date.is_a?(DateTime)
+                  puts "Date is not a valid type in #{file}: #{front_matter["date"].class}"
+                  next
+                end
+
+                date_str = date.strftime("%Y-%m-%d")
+                time_str = date.strftime("%H:%M")
+                posts[date_str] ||= []
+                posts[date_str] << {
+                  "id" => date.strftime("%Y-%m-%d-%H%M"),
+                  "time" => time_str,
+                  "title" => front_matter["title"]
+                }
+                puts "Added post: #{date_str} - #{front_matter["title"]}"
+              rescue StandardError => e
+                puts "Error processing #{file}: #{e.message}"
+                next
+              end
             end
-            date_str = date.strftime("%Y-%m-%d")
-            time_str = date.strftime("%H:%M")
-            posts[date_str] ||= []
-            posts[date_str] << {
-              "id" => date.strftime("%Y-%m-%d-%H%M"),
-              "time" => time_str,
-              "title" => front_matter["title"]
-            }
-            puts "Added post: #{date_str} - #{front_matter["title"]}"
-          end
-          sorted_posts = posts.sort_by { |date, _| Date.parse(date) }.reverse.to_h
-          puts "Writing posts.json: #{sorted_posts.to_json}"
-          File.write("posts.json", JSON.pretty_generate(sorted_posts))
+            sorted_posts = posts.sort_by { |date, _| Date.parse(date) }.reverse.to_h
+            puts "Writing posts.json: #{sorted_posts.to_json}"
+            File.write("posts.json", JSON.pretty_generate(sorted_posts))
           '
       - name: Show posts.json content
         run: cat posts.json
