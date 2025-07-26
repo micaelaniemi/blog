@@ -39,7 +39,29 @@ jobs:
                 puts "No date found in #{file}"
                 next
               end
-              date = front_matter["date"]
+              
+            # Try to parse the date, fallback if parsing fails
+              date = front_matter["date"]  #updated code to fix
+              
+              begin
+            # If date is a String, parse it
+            if date.is_a?(String)
+            date = Time.parse(date)
+            end
+            rescue ArgumentError
+            puts "Invalid date format in #{file}: #{front_matter['date']}"
+            next
+              end
+
+            date_str = date.strftime("%Y-%m-%d")
+            time_str = date.strftime("%H:%M")
+          posts[date_str] ||= []
+            posts[date_str] << 
+            {
+                 "id" => date.strftime("%Y-%m-%d-%H%M"),
+                "time" => time_str,
+                "title" => front_matter["title"]
+             }
               date_str = date.strftime("%Y-%m-%d")
               time_str = date.strftime("%H:%M")
               posts[date_str] ||= []
