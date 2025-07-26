@@ -23,6 +23,7 @@ jobs:
           ruby -e '
             require "yaml"
             require "json"
+            require "date"
             posts = {}
             files = Dir.glob("_posts/*.md")
             puts "Found #{files.length} files in _posts/: #{files.join(", ")}"
