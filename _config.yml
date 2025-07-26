@@ -4,6 +4,7 @@ repository: micaelaniemi/micaelaniemi.github.io
 username: micaelaniemi
 baseurl: "/blog"
 url: "https://micaelaniemi.github.io"
+future: true
 collections:
   posts:
     output: false
