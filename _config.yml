@@ -15,6 +15,4 @@ defaults:
       #permalink: none 
 future: true # Allow future-dated posts
 exclude: 
-   - Gemfile # implies Gemfile* so matches Gemfile.lock
-   - node_modules/ 
-   - vendor/ # matches vendor/*
+- "jeklyll/bundle"
