@@ -1,20 +1,16 @@
 name: Deploy Jekyll site to GitHub Pages
-
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
   group: "pages"
   cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,7 +20,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: '3.2' # Match sync-posts-json.yml
           bundler-cache: true
       - name: Setup Pages
         id: pages
@@ -34,9 +30,10 @@ jobs:
           gem install bundler
           bundle install
           bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-
   deploy:
     environment:
       name: github-pages
