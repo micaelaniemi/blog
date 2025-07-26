@@ -24,6 +24,7 @@ jobs:
             require "yaml"
             require "json"
             require "date"
+            require "time'
             posts = {}
             files = Dir.glob("_posts/*.md")
             puts "Found #{files.length} files in _posts/: #{files.join(", ")}"
@@ -41,33 +42,30 @@ jobs:
                 next
               end
               
-            # Try to parse the date, fallback if parsing fails
+              # Try to parse the date, fallback if parsing fails
               date = front_matter["date"]  #updated code to fix
-              
               begin
-            # If date is a String, parse it
-            if date.is_a?(String)
-            date = Time.parse(date)
-            end
+                # If date is a String, parse it
+                if date.is_a?(String)
+                  date = Time.parse(date)
+                end
             rescue ArgumentError
-            puts "Invalid date format in #{file}: #{front_matter['date']}"
-            next
-              end
-
+              puts "Invalid date format in #{file}: #{front_matter['date']}"
+              next
+            end
             date_str = date.strftime("%Y-%m-%d")
             time_str = date.strftime("%H:%M")
-          posts[date_str] ||= []
-            posts[date_str] << 
-            {
-                 "id" => date.strftime("%Y-%m-%d-%H%M"),
-                "time" => time_str,
-                "title" => front_matter["title"]
-             }
+            posts[date_str] ||= []
+            posts[date_str] << {
+              "id" => date.strftime("%Y-%m-%d-%H%M"),
+              "time" => time_str,
+              "title" => front_matter["title"]
+            }
             puts "Added post: #{date_str} - #{front_matter["title"]}"
-            end
-            sorted_posts = posts.sort_by { |date, _| Date.parse(date) }.reverse.to_h
-            puts "Writing posts.json: #{sorted_posts.to_json}"
-            File.write("posts.json", JSON.pretty_generate(sorted_posts))
+          end
+          sorted_posts = posts.sort_by { |date, _| Date.parse(date) }.reverse.to_h
+          puts "Writing posts.json: #{sorted_posts.to_json}"
+          File.write("posts.json", JSON.pretty_generate(sorted_posts))
           '
       - name: Show posts.json content
         run: cat posts.json
