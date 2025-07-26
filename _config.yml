@@ -1,18 +1,7 @@
 title: MN Blog
 description: Micaela Niemi's Blog
-baseurl: /blog
-url: https://micaelaniemi.github.io
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-defaults:
-  - scope:
-      path: "_posts"
-      type: posts
-    values:
-      layout: post
-      permalink: /posts/:year/#post-:year-:month-:day-:hour:minute
-      #permalink: none 
-future: true # Allow future-dated posts
-exclude: 
-- jekyll/bundle/ruby
+baseurl: "/blog"
+url: "https://micaelaniemi.github.io"
+permalink: none
+future: true
+exclude: [vendor]
