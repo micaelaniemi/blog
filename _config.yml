@@ -4,4 +4,4 @@ baseurl: "/blog"
 url: "https://micaelaniemi.github.io"
 permalink: none
 future: true # Allow future-dated posts
-exclude: [] # Prevent accidental exclusions
+exclude: [vendor] # Prevent accidental exclusions
