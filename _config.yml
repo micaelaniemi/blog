@@ -4,6 +4,5 @@ baseurl: "/blog"
 url: "https://micaelaniemi.github.io"
 collections:
   posts:
-    output: false # Prevent individual post pages
+    output: false
 permalink: none
-exclude: vendor
