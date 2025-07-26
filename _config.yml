@@ -11,8 +11,8 @@ defaults:
       type: posts
     values:
       layout: post
-      #permalink: /posts/:year/#post-:year-:month-:day-:hour:minute
-      permalink: none 
+      permalink: /posts/:year/#post-:year-:month-:day-:hour:minute
+      #permalink: none 
 future: true # Allow future-dated posts
 exclude: vendor # Prevent accidental exclusions
 
