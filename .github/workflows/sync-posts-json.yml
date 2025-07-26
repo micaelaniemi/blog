@@ -34,7 +34,7 @@ jobs:
                 puts "No front matter found in #{file}"
                 next
               end
-              front_matter = YAML.load(match[1])
+              front_matter = YAML.safe_load(match[1], permitted_classes: [Time, Date])
               unless front_matter["date"]
                 puts "No date found in #{file}"
                 next
