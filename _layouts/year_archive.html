@@ -27,18 +27,18 @@
 
     <div id="main">
         <h2>Posts for {{ page.year }}</h2>
-{% for post in site.posts %}
-    {% assign post_year = post.date | date: "%Y" %}
-    {% if post_year == page.year | to_string %}
-        <h3>{{ post.date | date: "%B %d, %Y" }}</h3>
-        <div id="post-{{ post.date | date: "%Y-%m-%d-%H%M" }}">
-            <h4>{{ post.date | date: "%I:%M %p" }} - {{ post.title }}</h4>
-            {{ post.content }}
-        </div>
-    {% endif %}
-{% endfor %}
-        <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
-    </div> 
+        {% for post in site.posts %}
+             {% assign post_year = post.date | date: "%Y" %}
+             {% if post_year == page.year | to_string %}
+                  <h3>{{ post.date | date: "%B %d, %Y" }}</h3>
+                  <div id="post-{{ post.date | date: "%Y-%m-%d-%H%M" }}">
+                       <h4>{{ post.date | date: "%I:%M %p" }} - {{ post.title }}</h4>
+                       {{ post.content }}
+                  </div>
+           {% endif %}
+      {% endfor %}
+       <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
+   </div>
 
 //used this code for debuging
 <!--    <div id="main">
