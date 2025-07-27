@@ -37,7 +37,7 @@ jobs:
       - name: Copy posts.json to main website repo
         run: |
           git clone https://github.com/micaelaniemi/website.git main-repo
-          cp _site/posts.json main-repo/website/
+          cp /posts.json main-repo/website/
           cd main-repo
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
