@@ -28,33 +28,28 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-      - name: Build with Jekyll
+      - name: Build Jekyll Site
         run: bundle exec jekyll build --future --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-      - name: Copy posts.json to main website repo
-      - name: Build Jekyll Site
-    run: bundle exec jekyll build
-    env:
-       JEKYLL_ENV: production
-    - name: Update posts.json in website repo
-      run: |
-        git clone https://github.com/micaelaniemi/website.git main-repo
-        if [ -f _site/posts.json ]; then
-           cp _site/posts.json main-repo/
-           cd main-repo
-           git config user.name "GitHub Actions Bot"
-           git config user.email "actions@github.com"
-           git add posts.json
-           git commit -m "Update posts.json from blog build" || echo "No changes to commit"
-          git push
-        else
-           echo "posts.json not found in _site, skipping update"
-       fi
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update posts.json in website repo
+        run: |
+          git clone https://github.com/micaelaniemi/website.git main-repo
+          if [ -f _site/posts.json ]; then
+            cp _site/posts.json main-repo/
+            cd main-repo
+            git config user.name "GitHub Actions Bot"
+            git config user.email "actions@github.com"
+            git add posts.json
+            git commit -m "Update posts.json from blog build" || echo "No changes to commit"
+            git push
+          else
+            echo "posts.json not found in _site, skipping update"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     environment:
