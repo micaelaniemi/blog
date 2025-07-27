@@ -35,17 +35,26 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
       - name: Copy posts.json to main website repo
-        run: |
-          git clone https://github.com/micaelaniemi/website.git main-repo
-          cp /posts.json main-repo/website/
-          cd main-repo
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-          git add website/posts.json
-          git commit -m "Update posts.json from blog build" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.WEBSITE_REPO_TOKEN }}@github.com/micaelaniemi/website.git
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Jekyll Site
+    run: bundle exec jekyll build
+    env:
+       JEKYLL_ENV: production
+    - name: Update posts.json in website repo
+      run: |
+        git clone https://github.com/micaelaniemi/website.git main-repo
+        if [ -f _site/posts.json ]; then
+           cp _site/posts.json main-repo/
+           cd main-repo
+           git config user.name "GitHub Actions Bot"
+           git config user.email "actions@github.com"
+           git add posts.json
+           git commit -m "Update posts.json from blog build" || echo "No changes to commit"
+          git push
+        else
+           echo "posts.json not found in _site, skipping update"
+       fi
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     environment:
