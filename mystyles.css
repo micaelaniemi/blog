@@ -155,29 +155,70 @@ footer {
     border-radius: 10px;
     font-size: 0.8em;  /* Scales down all text proportionally */
     margin-left: 275px;
-    
+}
   /* Optional: Adjust calendar container for better alignment */
 .fc {
   font-size: 0.8em; /* Slightly scale down all calendar text for consistency */
 }
-}
+
+/* Day numbers */
 .fc-daygrid-day-number {
     color: #000;
 }
+
+/* Event styling */
 .fc-event {
     background-color: #4682B4;
     color: #fff;
     border: none;
-    font-size: 0.7em;
-    padding: 2px;
+    font-size: 0.7em; /* Keep for readability */
+    padding: 1px; /* Reduced from 2px to make events more compact */
+    margin: 1px 0; /* Add small vertical margin to control spacing between events */
+    line-height: 1.2; /* Reduced line-height to tighten vertical spacing */
 }
 
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    #calendar {
+        width: 90%; /* Full width on smaller screens */
+        margin-left: auto; /* Remove left margin to center */
+        margin-right: auto;
+        font-size: 0.7em; /* Slightly smaller font for mobile */
+    }
+
+    .fc {
+        font-size: 0.7em;
+    }
+
+    .fc-event {
+        font-size: 0.6em;
+        padding: 1px; /* Consistent with desktop */
+        margin: 1px 0; /* Consistent with desktop */
+        line-height: 1.1; /* Slightly tighter for mobile */
+    }
+
+    .fc-toolbar-title {
+        font-size: 0.9em;
+    }
+
+    .fc-prev-button, .fc-next-button {
+        width: 40px;
+        height: 20px;
+        font-size: 0.7em;
+    }
+}
+
+
+
+
 /* Reduce calendar title (month and year) font size */
+
 .fc-toolbar-title {
   font-size: 1em; /* Adjust this value (e.g., 1em for smaller, 1.5em for larger) */
 }
 
 /* Reduce arrow button size */
+
 .fc-prev-button, .fc-next-button {
   padding: 3px; /* Smaller padding for compact buttons */
   font-size: 0.8em; /* Smaller icon/text size */
