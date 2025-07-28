@@ -5,7 +5,7 @@
     <title>{{ page.title }}</title>
     <link href="{{ '/mystyles.css' | relative_url }}" type="text/css" rel="stylesheet">
 </head>
-<body>
+
     <header>
         <p></p>
     </header>
@@ -25,79 +25,7 @@
         </ul>
     </nav>
 
-<!--    
-   <div id="main">
-        <h2>Posts for {{ page.year }}</h2>
-        {% for post in site.posts %}
-             {% assign post_year = post.date | date: "%Y" %}
-             {% if post_year == page.year | to_string %}
-                  <h3>{{ post.date | date: "%B %d, %Y" }}</h3>
-                  <div id="post-{{ post.date | date: "%Y-%m-%d-%H%M" }}">
-                       <h4>{{ post.date | date: "%I:%M %p" }} - {{ post.title }}</h4>
-                       {{ post.content }}
-                  </div>
-           {% endif %}
-      {% endfor %}
-       <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
-   </div> 
-
-#testing code
-
-<h1>Posts for {{ page.year }}</h1>
-
-{% assign posts = site.posts | where_exp: "post", "post.date | date: '%Y' == page.year" %}
-{% if posts.size > 0 %}
-  <ul>
-    {% for post in posts %}
-      {% assign post_id = post.date | date: "%Y-%m-%d" | append: "-" | append: post.time %}
-      <li id="post-{{ post_id }}">
-        <a href="#post-{{ post_id }}">{{ post.title }}</a>
-        <p>{{ post.date | date: "%B %d, %Y" }} at {{ post.time }}</p>
-        <div>{{ post.content }}</div>
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No posts found for {{ page.year }}.</p>
-{% endif %}
-    
- //used this code for debuging
-    <div id="main">
-    <h2>Posts for {{ page.year }}</h2>
-    <h3>All Posts (Debug)</h3>
-    <ul>
-    {% for post in site.posts %}
-        <li>{{ post.date | date: "%Y-%m-%d %I:%M %p" }} - {{ post.title }}</li>
-    {% endfor %}
-    </ul>
-    <h3>Filtered Posts</h3>
-        {% for post in site.posts %}
-        {% assign post_year = post.date | date: "%Y" %}
-        {% if post_year == page.year %}
-            <h3>{{ post.date | date: "%B %d, %Y" }}</h3>
-            <div id="post-{{ post.date | date: "%Y-%m-%d-%H%M" }}">
-                <h4>{{ post.date | date: "%I:%M %p" }} - {{ post.title }}</h4>
-                {{ post.content }}
-            </div> 
-        {% endif %}
-    {% endfor %}
-    <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
-</div>  
-    
-    <footer>
-        <p>Copyright Micaela Niemi, all rights reserved.</p>
-    </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const hash = window.location.hash;
-            if (hash) {
-                const post = document.querySelector(hash);
-                if (post) {
-                    post.scrollIntoView({ behavior: 'smooth' });
-                    post.style.backgroundColor = '#e6f4ea';
-                }
-            }
-        });
-    </script>    -->
+<body>
+    {{ content }}
 </body>
 </html>
