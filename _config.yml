@@ -1,11 +1,9 @@
-title: MN Blog
-description: Micaela Niemi's Blog
-username: micaelaniemi
-repository: micaelaniemi/blog
-url: https://micaelaniemi.github.io
-baseurl: /blog
-future: true
+title: My Blog
+description: Blog posts for calendar events
+baseurl: "/blog"
+url: "https://micaelaniemi.github.io"
+permalink: /posts/:year/:slug
 collections:
-  posts:
-    output: false
-permalink: none
+  years:
+    output: true
+    permalink: /posts/:year/
