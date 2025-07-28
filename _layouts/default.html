@@ -3,16 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
-    <link href="mystyles.css" type="text/css" rel="stylesheet">
+    <link href="{{ '/mystyles.css' | relative_url }}" type="text/css" rel="stylesheet">
 </head>
-    
 <body>
     <header>
         <p></p>
     </header>
     <nav>
         <ul class="nob">
-            <li><img class="float" src="swshlogo.jpg" height="160" alt="M Niemi's Website" /></li>
+            <li><img class="float" src="{{ '/swshlogo.jpg' | relative_url }}" height="160" alt="M Niemi's Website" /></li>
             <li><a href="https://micaelaniemi.github.io/website/index.html">Home</a></li>
             <li><a href="https://micaelaniemi.github.io/website/advertisers.html">Advertisers</a></li>
             <li><a href="https://micaelaniemi.github.io/website/favlinks.html">Favorite Links</a></li>
@@ -26,7 +25,7 @@
         </ul>
     </nav>
 
-
     {{ content }}
+    
 </body>
 </html>
