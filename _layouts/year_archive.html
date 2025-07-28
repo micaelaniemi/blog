@@ -40,7 +40,27 @@
        <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
    </div> -->
 
-//used this code for debuging
+#testing code
+
+<h1>Posts for {{ page.year }}</h1>
+
+{% assign posts = site.posts | where_exp: "post", "post.date | date: '%Y' == page.year" %}
+{% if posts.size > 0 %}
+  <ul>
+    {% for post in posts %}
+      {% assign post_id = post.date | date: "%Y-%m-%d" | append: "-" | append: post.time %}
+      <li id="post-{{ post_id }}">
+        <a href="#post-{{ post_id }}">{{ post.title }}</a>
+        <p>{{ post.date | date: "%B %d, %Y" }} at {{ post.time }}</p>
+        <div>{{ post.content }}</div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No posts found for {{ page.year }}.</p>
+{% endif %}
+    
+<!-- //used this code for debuging
     <div id="main">
     <h2>Posts for {{ page.year }}</h2>
     <h3>All Posts (Debug)</h3>
@@ -61,7 +81,7 @@
         {% endif %}
     {% endfor %}
     <a href="https://micaelaniemi.github.io/website/index.html">Back to Calendar</a>
-</div>  
+</div>  -->
     
     <footer>
         <p>Copyright Micaela Niemi, all rights reserved.</p>
