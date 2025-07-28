@@ -1,0 +1,14 @@
+---
+layout: default
+title: 2025 Posts
+---
+<h1>2025 Blog Posts</h1>
+<ul>
+{% assign sorted_posts = site.posts | where: "date", "2025" | sort: "date" | reverse %}
+{% for post in sorted_posts %}
+  <li id="post-{{ post.id }}">
+    <a href="#post-{{ post.id }}">{{ post.title }} - {{ post.date | date: "%B %d, %Y %I:%M %p" }}</a>
+    {{ post.content }}
+  </li>
+{% endfor %}
+</ul>
